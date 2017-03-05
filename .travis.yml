@@ -1,0 +1,23 @@
+dist: precise
+language: php
+php:
+  - 5.6
+  - 7.0
+  - 7.1
+
+notifications:
+  email: false
+
+before_install:
+
+before_script:
+
+script:
+  - vendor/bin/phpunit --stop-on-failure
+  - vendor/bin/phpunit --configuration Tests --stop-on-failure
+
+after_script:
+
+services:
+
+addons:

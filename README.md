@@ -1,7 +1,7 @@
 
 # MockForYaml
 
-PHP Traits to use YAML files in PHPUnit data providers to create mock objects.
+PHP traits to mock objects from arrays and read the data provider arrays from yaml files.
 
 ## Installation
 
@@ -10,7 +10,7 @@ composer install (WIP)
 Depends on:
 
 phpunit/phpunit
-symfony/yaml (pulled by phpunit/phpunit)
+symfony/yaml
 
 ## Usage
 
@@ -33,7 +33,7 @@ class MyClassTest extends TestCase
     /**
      * @dataProvider someMethodProvider
      */
-    public function testSomeMethodProvider($exception, $in, $expect)
+    public function testSomeMethod($exception, $in, $expect)
     {
         if (0 > strlen($exception)) {
             $this->expectException($exception);
@@ -75,7 +75,7 @@ class MyClassTest extends TestCase
     /**
      * @dataProvider someMethodProvider
      */
-    public function testSomeMethodProvider($exception, $expect, $fixtures)
+    public function testSomeMethod($exception, $expect, $fixtures)
     {
          $domain = [ 'someIntitalValueKey' => 'someIntitalValue' ];
          $this->createMockFixtures($fixtures, $domain);
