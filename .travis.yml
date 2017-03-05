@@ -11,6 +11,7 @@ notifications:
 before_install:
 
 before_script:
+  - composer install
 
 script:
   - vendor/bin/phpunit --configuration Tests/phpunit.xml --stop-on-failure
