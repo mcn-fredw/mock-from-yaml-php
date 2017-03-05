@@ -1,8 +1,10 @@
 <?php
 namespace MockFromYaml;
 
+use PHPUnit\Runner\Version;
+
 /** Trait MockFromArrayCreatorTrait
- * Contains methods to create a PHPUnit mock object from arrays.
+ * Contains methods to create PHPUnit mock object(s) from arrays.
  *
  * @author Fred Woods
  * @version 1.0.0
@@ -135,7 +137,12 @@ trait MockFromArrayCreatorTrait
             /* nothing to mock */
             return null;
         }
-        $mockObject = $this->createMock($thingName);
+        $mockObject = null;
+        if ('5.4' > Version::id()) {
+            $mockObject = $this->getMock($thingName);
+        } else {
+            $mockObject = $this->createMock($thingName);
+        }
         /* ref for returning self */
         $domain['this'] = $mockObject;
         foreach ($mockParams as $method => $params) {
