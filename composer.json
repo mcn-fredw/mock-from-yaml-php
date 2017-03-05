@@ -20,6 +20,12 @@
         }
     ],
     "autoload": {
-        "psr-4": {"MockFromYaml\\": "./"}
+        "psr-4": {"MockFromYaml\\": "src/"}
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MockFromYaml\\Tests\\": "Tests/",
+            "MockFromYaml\\ExampleProject\\": "ExampleProject/"
+        }
     }
 }
