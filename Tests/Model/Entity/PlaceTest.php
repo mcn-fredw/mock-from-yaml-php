@@ -10,15 +10,15 @@ class PlaceTest extends TestCase
 {
     use YamlTestCasesReaderTrait;
 
-    public function getLocationProvider()
+    public function accessorsProvider()
     {
-        return static::readYamlTestCases(__DIR__ . '/PlaceTest.getLocationProvider.yml');
+        return static::readYamlTestCases(__DIR__ . '/PlaceTest.accessorsProvider.yml');
     }
 
     /**
-     * @dataProvider getLocationProvider
+     * @dataProvider accessorsProvider
      */
-    public function testLocationAccessors($exception, $name, $callSetter, $value, $callGetter, $expect)
+    public function testAccessors($exception, $name, $callSetter, $value, $callGetter, $expect)
     {
         if (0 < strlen($exception)) {
             $this->expectException($exception);
