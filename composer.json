@@ -18,5 +18,8 @@
             "type": "vcs",
             "url": "git@github.com:mcn-fredw/mock-from-yaml-php.git"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {"MockFromYaml\\": "./"}
+    }
 }

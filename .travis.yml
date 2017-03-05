@@ -13,8 +13,7 @@ before_install:
 before_script:
 
 script:
-  - vendor/bin/phpunit --stop-on-failure
-  - vendor/bin/phpunit --configuration Tests --stop-on-failure
+  - vendor/bin/phpunit --configuration Tests/phpunit.xml --stop-on-failure
 
 after_script:
 

@@ -35,7 +35,7 @@ class MyClassTest extends TestCase
      */
     public function testSomeMethod($exception, $in, $expect)
     {
-        if (0 > strlen($exception)) {
+        if (0 < strlen($exception)) {
             $this->expectException($exception);
         }
         $obj = new MyClass();
@@ -79,7 +79,7 @@ class MyClassTest extends TestCase
     {
          $domain = [ 'someIntitalValueKey' => 'someIntitalValue' ];
          $this->createMockFixtures($fixtures, $domain);
-         if (0 > strlen($exception)) {
+         if (0 < strlen($exception)) {
              $this->expectException($exception);
          }
         $obj = new MyClass($domain['serviceConnector']);
