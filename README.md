@@ -55,7 +55,7 @@ test case 2:
     expect: true
     
 ```
-Using YAML files to object mocking (high level usage):
+Using YAML files for object mocking (high level usage):
 ```
 namespace Tests\libs\MyClassTest_NS;
 
