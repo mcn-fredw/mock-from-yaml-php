@@ -3,7 +3,8 @@
     "description": "PHP traits to mock objects from arrays and read the data provider arrays from yaml files.",
     "type": "library",
     "require": {
-        "phpunit/phpunit": ">=3.4"
+        "phpunit/phpunit": ">=3.4",
+        "symfony/yaml": ">=2.2"
     },
     "license": "BSD-3-Clause",
     "authors": [
@@ -14,8 +15,8 @@
     ],
     "repositories": [
         {
-            "type": "composer",
-            "url": "https://github.com/mcn-fredw/mock-from-yaml-php"
+            "type": "vcs",
+            "url": "git@github.com:mcn-fredw/mock-from-yaml-php.git"
         }
     ]
 }
