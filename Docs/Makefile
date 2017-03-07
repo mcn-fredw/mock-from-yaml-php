@@ -3,8 +3,8 @@
 #
 
 SED=sed 's/^trait/interface/'
-Constants=Constants.php
-SOURCES+= ${Constants}
+MockFromYamlVersion=MockFromYamlVersion.php
+SOURCES+= ${MockFromYamlVersion}
 MockFromArrayCreatorTrait=MockFromArrayCreatorTrait.php
 SOURCES+= ${MockFromArrayCreatorTrait}
 YamlTestCasesReaderTrait=YamlTestCasesReaderTrait.php
@@ -18,14 +18,13 @@ clean:
 
 html:	html/index.html
 
-${Constants}:	../${Constants}
-	-@ rm ${Constants}
-	@ ln -s ../${Constants} ${Constants}
-
-${MockFromArrayCreatorTrait}:	../${MockFromArrayCreatorTrait}
+${MockFromYamlVersion}:	../src/${MockFromYamlVersion}
 	@ ${SED} < ${>} > ${@}
 
-${YamlTestCasesReaderTrait}:	../${YamlTestCasesReaderTrait}
+${MockFromArrayCreatorTrait}:	../src/${MockFromArrayCreatorTrait}
+	@ ${SED} < ${>} > ${@}
+
+${YamlTestCasesReaderTrait}:	../src/${YamlTestCasesReaderTrait}
 	@ ${SED} < ${>} > ${@}
 
 html/index.html:	${SOURCES} Doxyfile
