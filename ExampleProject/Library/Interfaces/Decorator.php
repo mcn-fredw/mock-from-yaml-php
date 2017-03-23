@@ -11,4 +11,11 @@ interface Decorator
      * @return Instance of decorator.
      */
     public function decorate($obj);
+
+    /** Initialize the decorated object (and decorator).
+     * @param[in] va_args initialization parameters.
+     * The last parameter is the factory configuration for the object.
+     * @return Instance of decorator.
+     */
+    public function initialize();
 }
