@@ -84,24 +84,31 @@ trait MockFromArrayCreatorTrait
                  */
                 $result[] = $this->callMockBuilderMethod($method, $domain);
             } else {
-                if (count($methodSpec) > 0) {
-                    /* with: [equalTo, x]
-                    /* with: [equalTo, [x, y, z]]
-                    /* with: [equalTo, ['a' => x, 'b' => y, 'c' => z]]
-                     * will: [returnValue, x]
-                     * will: [returnValue, [x, y, z]]
-                    /* will: [returnValue, ['a' => x, 'b' => y, 'c' => z]]
-                     */
-                    $arg = array_shift($methodSpec);
-                    $arg = $this->resolveMockBuilderArgument($arg, $domain);
-                    return call_user_func([$this, $method], $arg);
-                } else {
+                if (0 == count($methodSpec)) {
                     /* expects: [once]
                      * expects: [never]
                      * expects: [any]
                      */
                     return call_user_func([$this, $method]);
                 }
+                if (1 == count($methodSpec)) {
+                    /* with: [equalTo, x]
+                     * with: [equalTo, [x, y, z]]
+                     * with: [equalTo, ['a' => x, 'b' => y, 'c' => z]]
+                     * will: [returnValue, x]
+                     * will: [returnValue, [x, y, z]]
+                     * will: [returnValue, ['a' => x, 'b' => y, 'c' => z]]
+                     */
+                    $arg = array_shift($methodSpec);
+                    $arg = $this->resolveMockBuilderArgument($arg, $domain);
+                    return call_user_func([$this, $method], $arg);
+                }
+                /* 1 < count($methodSpec)
+                 * will: [onConsecutiveCalls, a, b, c]
+                 * will: [callback, a, b, c]
+                 */
+                $args = $this->resolveMockBuilderArgument($methodSpec, $domain);
+                return call_user_func_array([$this, $method], $args);
             }
         }
         return $result;

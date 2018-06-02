@@ -11,7 +11,7 @@ interface State
      * @param[in] &$prevState Reference to previous object state.
      * @return Generally ignored.
      */
-    public function enterState(State &$prevState=null);
+    public function enterState(State &$prevState = null);
 
     /** Method called by context to take action within state.
      * @return Generally ignored.
