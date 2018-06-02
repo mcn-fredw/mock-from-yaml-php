@@ -1,5 +1,5 @@
 
-# MockForYaml
+# MockFromYaml
 
 PHP traits to mock objects from arrays and read the data provider arrays from yaml files.
 
