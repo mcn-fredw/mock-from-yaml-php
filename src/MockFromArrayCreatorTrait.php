@@ -216,6 +216,10 @@ trait MockFromArrayCreatorTrait
     {
         if (! is_array($arg)) {
             /* check for domain reference */
+            if (is_object($arg)) {
+                /* arg can't be a domain reference */
+                return $arg;
+            }
             if (2 > strlen($arg)) {
                 /* arg can't be a domain reference */
                 return $arg;
