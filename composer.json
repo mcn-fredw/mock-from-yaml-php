@@ -3,7 +3,6 @@
     "description": "PHP traits to mock objects from arrays and read the data provider arrays from yaml files.",
     "type": "library",
     "require": {
-        "environmentdependency/environmentdependency": "dev-LSP-1518",
         "phpunit/phpunit": ">=7",
         "symfony/yaml": "dev-master"
     },
@@ -18,10 +17,6 @@
         {
             "type": "vcs",
             "url": "git@github.com:mcn-fredw/mock-from-yaml-php.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@github.com:MCN-Healthcare/lsp-shared-ui-composer-plugin.git"
         }
     ],
     "autoload": {
@@ -31,11 +26,6 @@
         "psr-4": {
             "MockFromYaml\\Tests\\": "Tests/",
             "MockFromYaml\\ExampleProject\\": "ExampleProject/"
-        }
-    },
-    "extra": {
-        "envdependencies": {
-            "symfony/yaml": "YAML_BRANCH"
         }
     }
 }
