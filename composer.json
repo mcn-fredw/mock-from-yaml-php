@@ -15,8 +15,8 @@
     ],
     "repositories": [
         {
-            "type": "vcs",
-            "url": "git@github.com:mcn-fredw/mock-from-yaml-php.git"
+            "type": "github",
+            "url": "https://github.com/mcn-fredw/mock-from-yaml-php"
         }
     ],
     "autoload": {
