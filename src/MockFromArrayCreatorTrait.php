@@ -82,7 +82,7 @@ trait MockFromArrayCreatorTrait
             if (is_array($method)) {
                 /* with: [[equalTo, x], [equalTo, y], ...]
                  */
-                $result[] = $this->callMockBuilderMethod($method, $domain);
+                $result[] = $this->callMockBuilderInMethod($method, $domain);
             } else {
                 if (0 == count($methodSpec)) {
                     /* expects: [once]
@@ -159,7 +159,7 @@ trait MockFromArrayCreatorTrait
         $domain['this'] = $mockObject;
         foreach ($mockParams as $method => $params) {
             $key = 'expects';
-            $arg = $this->callMockBuilderMethod($params[$key], $domain);
+            $arg = $this->callMockBuilderInMethod($params[$key], $domain);
             $mock = $mockObject->expects($arg)->method($method);
             foreach ($inMethods as $key) {
                 if (array_key_exists($key, $params)) {
