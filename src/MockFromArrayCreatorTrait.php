@@ -68,13 +68,13 @@ namespace MockFromYaml;
  */
 trait MockFromArrayCreatorTrait
 {
-    /** Calls a mock builder method.
+    /** Calls a mock builder input setup method.
      * @param[in] $methodSpec Array with method name as first element,
      * and method parameters as the remaining elements.
      * @param[in] &$domain Array of name value pairs for $name resolution.
      * @return method return value.
      */
-    protected function callMockBuilderMethod($methodSpec, array &$domain = [])
+    protected function callMockBuilderInMethod($methodSpec, array &$domain = [])
     {
         $result = [];
         while (count($methodSpec) > 0) {
@@ -95,9 +95,6 @@ trait MockFromArrayCreatorTrait
                     /* with: [equalTo, x]
                      * with: [equalTo, [x, y, z]]
                      * with: [equalTo, ['a' => x, 'b' => y, 'c' => z]]
-                     * will: [returnValue, x]
-                     * will: [returnValue, [x, y, z]]
-                     * will: [returnValue, ['a' => x, 'b' => y, 'c' => z]]
                      */
                     $arg = array_shift($methodSpec);
                     $arg = $this->resolveMockBuilderArgument($arg, $domain);
@@ -121,17 +118,27 @@ trait MockFromArrayCreatorTrait
      * method-to-mock-name => [
      *    'expects' => [expects-function-name, expects-function parameters],
      *    'with' => [with-function-name, with-function parameters],
-     *    'will' => [will-function-name, will-function parameters],
+     *    'will*' => [will-function parameters],
      * ]
      * typical expects element: ['never'] | ['once'] | ['any'].
      * typical optional with element: ['equalTo', value].
-     * typical optional will element: ['returnValue', value].
+     * typical optional willReturn element: [value].
      * @endcode
      * @param[in] &$domain Array of name value pairs for $name resolution.
      * @return mock object or null for no paramters.
      */
     protected function createMockObjectFromArray($thingName, $mockParams, array &$domain = [])
     {
+        $inMethods = [
+            'with'
+        ];
+        $outMethods = [
+        'willReturn',
+        'willReturnMap',
+        'willReturnArgument',
+        'willReturnCallback',
+        'willThrowException'
+        ];
         if (
             ! is_array($mockParams)
             || count($mockParams) < 1
@@ -154,10 +161,19 @@ trait MockFromArrayCreatorTrait
             $key = 'expects';
             $arg = $this->callMockBuilderMethod($params[$key], $domain);
             $mock = $mockObject->expects($arg)->method($method);
-            foreach (['with', 'will', 'withConsecutive'] as $key) {
+            foreach ($inMethods as $key) {
                 if (array_key_exists($key, $params)) {
-                    /* spec has called with expectation(s)/return value(s) */
-                    $arg = $this->callMockBuilderMethod($params[$key], $domain);
+                    $arg = $this->callMockBuilderInMethod($params[$key], $domain);
+                    if (is_array($arg)) {
+                        $mock = call_user_func_array([$mock, $key], $arg);
+                    } else {
+                        $mock = call_user_func([$mock, $key], $arg);
+                    }
+                }
+            }
+            foreach ($outMethods as $key) {
+                if (array_key_exists($key, $params)) {
+                    $arg = $this->resolveMockBuilderArgument($params[$key], $domain);
                     if (is_array($arg)) {
                         $mock = call_user_func_array([$mock, $key], $arg);
                     } else {
